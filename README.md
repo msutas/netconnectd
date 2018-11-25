@@ -140,7 +140,7 @@ to do that).
 It's finally time to install `netconnectd`:
 
     cd
-    git clone https://github.com/foosel/netconnectd
+    git clone https://github.com/msutas/netconnectd
     cd netconnectd
     sudo python setup.py install
     sudo python setup.py install_extras
