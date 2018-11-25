@@ -183,7 +183,7 @@ def params():
     zip_safe = False
 
     dependency_links = [
-        "https://github.com/foosel/wifi/tarball/master#egg=wifi-1.0.1"
+        "https://github.com/msutas/wifi/tarball/master#egg=wifi-1.0.1"
     ]
     install_requires = [
         "wifi==1.0.1",
