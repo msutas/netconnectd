@@ -36,7 +36,7 @@ class Server(object):
                  ap_network='10.250.250.0/24', ap_range=('10.250.250.100', '10.250.250.200'), ap_forwarding=False,
                  ap_domain=None, wifi_name='netconnect_wifi', wifi_free=False, wifi_kill=False, path_hostapd="/usr/sbin/hostapd",
                  path_hostapd_conf="/etc/hostapd/conf.d", path_dnsmasq="/usr/sbin/dnsmasq", path_dnsmasq_conf="/etc/dnsmasq.conf.d",
-                 path_interfaces="/etc/network/interfaces"):
+                 path_interfaces="/etc/wpa_supplicant/wpa_supplicant.conf"):
 
         self.logger = logging.getLogger(__name__)
         def exception_logger(exc_type, exc_value, exc_tb):

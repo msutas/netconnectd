@@ -69,7 +69,7 @@ default_config = dict(
         hostapd_conf="/etc/hostapd/conf.d",
         dnsmasq="/usr/sbin/dnsmasq",
         dnsmasq_conf="/etc/dnsmasq.conf.d",
-        interfaces="/etc/network/interfaces"
+        interfaces="/etc/wpa_supplicant/wpa_supplicant.conf"
     )
 )
 
