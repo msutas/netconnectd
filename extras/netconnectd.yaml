@@ -28,27 +28,27 @@ ap:
   #driver: nl80211
 
   # your AP wifi's SSID
-  ssid: netconnectdAP
+  ssid: Rigid3D
 
   # your AP wifi's passphrase
-  psk: ANotVerySecurePassphraseYouReallyShouldChangeRightNow!!1!
+  psk: 12345678
 
   # wifi channel on which the AP should run
   #channel: 3
 
   # ip of the AP on the created wifi, also check if you need to adjust 
   # network and range if you change this
-  #ip: 10.250.250.1
+  ip: 10.250.250.1
 
   # network of the created wifi, also check if you need to adjust ip 
   # and range if you change this
-  #network: 10.250.250.0/24
+  network: 10.250.250.0/24
 
   # range of ip addresses to hand out via dhcpd, first ip and last ip,
   # also check if you need to adjust ip and network if you change this
-  #range:
-  #- 10.250.250.100
-  #- 10.250.250.200
+  range:
+  - 10.250.250.100
+  - 10.250.250.200
 
   # if you also want to reach your hosts by something like myhost.home,
   # set this, normally unset
@@ -65,14 +65,14 @@ wifi:
   #name: netconnectd_wifi
 
   # if your system doesn't run NetworkManager, set this to false
-  free: true
+  free: false
 
   # set this to true if you want to reset the wifi interface via rfkill
   # upon interface set up errors during wifi connection, scanning or
   # bringing up the AP, which may happen if the wifi driver hiccups
   #
   # Recommended, but depends on the rfkill command to be available
-  kill: true
+  kill: false
 
 # various paths of tools used
 paths:
@@ -89,5 +89,5 @@ paths:
   dnsmasq_conf: /etc/netconnectd.conf.d/dnsmasq
 
   # path to interfaces file to use, usually no need to change this
-  #interfaces: /etc/network/interfaces
+  interfaces: /etc/wpa_supplicant/wpa_supplicant.conf
 
