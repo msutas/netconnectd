@@ -142,7 +142,6 @@ It's finally time to install `netconnectd`:
     cd
     git clone https://github.com/msutas/netconnectd
     cd netconnectd
-    sudo apt-get install -y python-setuptools
     sudo python setup.py install
     sudo python setup.py install_extras
     sudo update-rc.d netconnectd defaults 98
