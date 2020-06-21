@@ -312,13 +312,12 @@ class Server(object):
 
         # make sure multicast addresses can be routed on the AP
         self.logger.debug("Removing multicast routes")
-        try:
-            subprocess.check_output(['/sbin/ip', 'route', 'del', '224.0.0.0/4', 'dev', self.wifi_if])
-            subprocess.check_output(['/sbin/ip', 'route', 'del', '239.255.255.250', 'dev', self.wifi_if])
-        except subprocess.CalledProcessError as e:
-            self.logger.exception("Could not remove multicast routes")
-            self.logger.warn("Output: %s" % e.output)
-            continue
+        #try:
+        #    subprocess.check_output(['/sbin/ip', 'route', 'del', '224.0.0.0/4', 'dev', self.wifi_if])
+        #    subprocess.check_output(['/sbin/ip', 'route', 'del', '239.255.255.250', 'dev', self.wifi_if])
+        #except subprocess.CalledProcessError as e:
+        #    self.logger.exception("Could not remove multicast routes")
+        #    self.logger.warn("Output: %s" % e.output)
 
         self.logger.debug("Freeing wifi interface")
         self.free_wifi()
