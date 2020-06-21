@@ -318,6 +318,7 @@ class Server(object):
         except subprocess.CalledProcessError as e:
             self.logger.exception("Could not remove multicast routes")
             self.logger.warn("Output: %s" % e.output)
+			continue
 
         self.logger.debug("Freeing wifi interface")
         self.free_wifi()
