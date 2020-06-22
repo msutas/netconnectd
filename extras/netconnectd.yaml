@@ -9,7 +9,7 @@ interfaces:
 # link monitor configuration
 #link_monitor:
 #  # whether to enable the link monitor
-  enabled: false
+#  enabled: True
 #
 #  # after how many consecutive link down events to start up the AP
 #  max_link_down: 3
@@ -52,7 +52,7 @@ ap:
 
   # if you also want to reach your hosts by something like myhost.home,
   # set this, normally unset
-  #domain: home
+  domain: wifi
 
   # whether to create a true AP forwarding to the wired interface, defaults
   # to false
