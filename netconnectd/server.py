@@ -268,10 +268,10 @@ class Server(object):
         self.free_wifi()
         self.logger.debug("Starting up AP")
 
-        try:
-            self.access_point.activate()
-        except wifi.scheme.WifiError as e:
-            self.logger.exception("Got an error while trying to activate the access point")
+        #try:
+        #    self.access_point.activate()
+        #except wifi.scheme.WifiError as e:
+        #    self.logger.exception("Got an error while trying to activate the access point")
 
             if isinstance(e, wifi.scheme.InterfaceError):
                 # trying to bring up the ap failed with an interface error => might be that the driver hiccuped due to
@@ -285,26 +285,26 @@ class Server(object):
                 
                 self.reset_wifi()
 
-                try:
+                #try:
                     # let's try that again, sometimes second time's the charm
-                    self.logger.info("First try at bringing up the AP failed, we'll try again now for a second time")
-                    self.access_point.activate()
-                except:
-                    self.logger.exception("Second try at activating the access point failed, giving up")
-                    raise
+                    #self.logger.info("First try at bringing up the AP failed, we'll try again now for a second time")
+                    #self.access_point.activate()
+                #except:
+                #    self.logger.exception("Second try at activating the access point failed, giving up")
+                #    raise
 
         # make sure multicast addresses can be routed on the AP
         self.logger.debug("Adding multicast routes")
-        try:
-            subprocess.check_call(['sudo', '/sbin/ip', 'route', 'add', '224.0.0.0/4', 'dev', self.wifi_if])
-            subprocess.check_call(['sudo', '/sbin/ip', 'route', 'add', '239.255.255.250', 'dev', self.wifi_if])
-            self.logger.debug("Added multicast routes")
-        except subprocess.CalledProcessError as e:
-            self.logger.exception("Could not add multicast routes")
-            self.logger.warn("Output: " % e.output)
-            return False
+        #try:
+        #    subprocess.check_call(['sudo', '/sbin/ip', 'route', 'add', '224.0.0.0/4', 'dev', self.wifi_if])
+        #    subprocess.check_call(['sudo', '/sbin/ip', 'route', 'add', '239.255.255.250', 'dev', self.wifi_if])
+        #    self.logger.debug("Added multicast routes")
+        #except subprocess.CalledProcessError as e:
+        #    self.logger.exception("Could not add multicast routes")
+        #    self.logger.warn("Output: " % e.output)
+        #    return False
 
-        return True
+        return False #True
 
     def stop_ap(self):
         if not self.wifi_if_present:
