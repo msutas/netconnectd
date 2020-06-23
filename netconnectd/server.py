@@ -58,7 +58,7 @@ class Server(object):
 
         self.wifi_if_present = True
         try:
-            subprocess.check_call(['ifconfig', self.wifi_if])
+            subprocess.check_call(['sudo', 'ifconfig', self.wifi_if])
         except subprocess.CalledProcessError as e:
             self.logger.warn("Error while trying to retrieve status of {wifi_if}: {output}".format(wifi_if=self.wifi_if, output=e.output))
             self.wifi_if_present = False
@@ -223,7 +223,7 @@ class Server(object):
 
     def free_wifi(self):
         if self.wifi_free:
-            subprocess.check_call(['nmcli', 'nm', 'wifi', 'off'])
+            #subprocess.check_call(['nmcli', 'nm', 'wifi', 'off'])
             subprocess.check_call(['rfkill', 'unblock', 'wlan'])
 
     def reset_wifi(self):
@@ -296,8 +296,8 @@ class Server(object):
         # make sure multicast addresses can be routed on the AP
         self.logger.debug("Adding multicast routes")
         try:
-            subprocess.check_call(['/sbin/ip', 'route', 'add', '224.0.0.0/4', 'dev', self.wifi_if])
-            subprocess.check_call(['/sbin/ip', 'route', 'add', '239.255.255.250', 'dev', self.wifi_if])
+            subprocess.check_call(['sudo', '/sbin/ip', 'route', 'add', '224.0.0.0/4', 'dev', self.wifi_if])
+            subprocess.check_call(['sudo', '/sbin/ip', 'route', 'add', '239.255.255.250', 'dev', self.wifi_if])
             self.logger.debug("Added multicast routes")
         except subprocess.CalledProcessError as e:
             self.logger.exception("Could not add multicast routes")
@@ -313,8 +313,8 @@ class Server(object):
         # make sure multicast addresses can be routed on the AP
         self.logger.debug("Removing multicast routes")
         try:
-            subprocess.check_output(['/sbin/ip', 'route', 'del', '224.0.0.0/4', 'dev', self.wifi_if])
-            subprocess.check_output(['/sbin/ip', 'route', 'del', '239.255.255.250', 'dev', self.wifi_if])
+            subprocess.check_output(['sudo', '/sbin/ip', 'route', 'del', '224.0.0.0/4', 'dev', self.wifi_if])
+            subprocess.check_output(['sudo', '/sbin/ip', 'route', 'del', '239.255.255.250', 'dev', self.wifi_if])
         except subprocess.CalledProcessError as e:
             self.logger.exception("Could not remove multicast routes")
             self.logger.warn("Output: %s" % e.output)
@@ -337,7 +337,7 @@ class Server(object):
         self.logger.debug("Freeing wifi interface")
         self.free_wifi()
         self.logger.debug("Starting interface %s" % self.wifi_if)
-        subprocess.check_call(['ifconfig', self.wifi_if, 'up'])
+        subprocess.check_call(['sudo', 'ifconfig', self.wifi_if, 'up'])
 
         self.logger.debug("Scanning for cells")
         self.cells = wifi.Cell.all(self.wifi_if)

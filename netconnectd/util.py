@@ -15,7 +15,7 @@ def has_link():
     link = False
     reachable_devs = set()
 
-    output = subprocess.check_output(['/sbin/ip', 'neigh', 'show'])
+    output = subprocess.check_output(['sudo', '/sbin/ip', 'neigh', 'show'])
 
     lines = output.split('\n')
     for line in lines:
