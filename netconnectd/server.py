@@ -279,9 +279,9 @@ class Server(object):
                 # try to reset it by blocking/unblocking it and then trying to activate the AP a second time
                 
                 #try:
-                    self.access_point.deactivate()
+                    #self.access_point.deactivate()
                 #except:
-                    self.logger.exception("Error while deactivating the failed AP")
+                    #self.logger.exception("Error while deactivating the failed AP")
                 
                 #self.reset_wifi()
 
