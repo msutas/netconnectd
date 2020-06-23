@@ -273,17 +273,17 @@ class Server(object):
         #except wifi.scheme.WifiError as e:
         #    self.logger.exception("Got an error while trying to activate the access point")
 
-            if isinstance(e, wifi.scheme.InterfaceError):
+            #if isinstance(e, wifi.scheme.InterfaceError):
                 # trying to bring up the ap failed with an interface error => might be that the driver hiccuped due to
                 # some earlier event, or that our interface was not ready yet for being turned into an AP, so we now
                 # try to reset it by blocking/unblocking it and then trying to activate the AP a second time
                 
-                try:
+                #try:
                     self.access_point.deactivate()
-                except:
+                #except:
                     self.logger.exception("Error while deactivating the failed AP")
                 
-                self.reset_wifi()
+                #self.reset_wifi()
 
                 #try:
                     # let's try that again, sometimes second time's the charm
