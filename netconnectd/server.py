@@ -385,7 +385,7 @@ class Server(object):
         try:
             ifupout = subprocess.check_output(['sudo', '/sbin/ifconfig', 'wlan0', 'up'], stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as e:
-		    self.logger.info("Ifconfig up başarısız %s" % self.wifi_connection_ssid)
+		    self.logger.info("Ifconfig up basarisiz %s" % self.wifi_connection_ssid)
             return False
 
         return True
