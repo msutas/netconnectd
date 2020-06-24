@@ -379,42 +379,51 @@ class Server(object):
             self.stop_ap()
 
         self.free_wifi()
-
+		
+        subprocess.check_call(['/sbin/wpa_cli', '-i', 'wlan0', 'reconfigure'], stderr=subprocess.STDOUT)
+        
         try:
-            self.wifi_connection.activate()
-            self.logger.info("Connected to wifi %s" % self.wifi_connection_ssid)
-            return True
-
-        except wifi.scheme.WifiError as e:
-            if isinstance(e, wifi.scheme.InterfaceError):
-                # trying to connect to the network failed with an interface error => might be that the driver hiccuped due to
-                # some earlier event, or that our interface was not ready yet, so we now try to reset it by blocking/unblocking
-                # it and then trying to activate the AP a second time
-                self.logger.info("First try at connecting to the network failed with an interface error, we'll try again now for a second time")
-
-                self.reset_wifi()
-
-                try:
-                    # let's try that again, sometimes second time's the charm
-                    self.wifi_connection.activate()
-                    return True
-                except wifi.scheme.WifiError as e:
-                    self.logger.exception("Second try at connecting to the network failed, giving up")
-
-            self.wifi_available = False
-            self.logger.warn("Could not connect to wifi %s" % self.wifi_connection_ssid)
-            try:
-                self.wifi_connection.deactivate()
-            except:
-                self.logger.exception("Could not deactivate wifi connection again, that's odd")
-
-            if isinstance(e, wifi.scheme.InterfaceError):
-                # we encountered an interface error, so we'll try to reset the wifi
-                self.reset_wifi()
-
-            if restart_ap:
-                self.start_ap()
+            ifupout = subprocess.check_output(['sudo', '/sbin/ifconfig', 'wlan0', 'up'], stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError as e:
+		    self.logger.info("Ifconfig up başarısız %s" % self.wifi_connection_ssid)
             return False
+
+        return True
+        #try:
+        #    self.wifi_connection.activate()
+        #    self.logger.info("Connected to wifi %s" % self.wifi_connection_ssid)
+        #    return True
+
+        #except wifi.scheme.WifiError as e:
+        #    if isinstance(e, wifi.scheme.InterfaceError):
+        #        # trying to connect to the network failed with an interface error => might be that the driver hiccuped due to
+        #        # some earlier event, or that our interface was not ready yet, so we now try to reset it by blocking/unblocking
+        #        # it and then trying to activate the AP a second time
+        #        self.logger.info("First try at connecting to the network failed with an interface error, we'll try again now for a second time")
+
+        #        self.reset_wifi()
+
+        #        try:
+                    # let's try that again, sometimes second time's the charm
+        #            self.wifi_connection.activate()
+        #            return True
+        #        except wifi.scheme.WifiError as e:
+        #            self.logger.exception("Second try at connecting to the network failed, giving up")
+
+        #    self.wifi_available = False
+        #    self.logger.warn("Could not connect to wifi %s" % self.wifi_connection_ssid)
+        #    try:
+        #        self.wifi_connection.deactivate()
+        #    except:
+        #        self.logger.exception("Could not deactivate wifi connection again, that's odd")
+
+        #    if isinstance(e, wifi.scheme.InterfaceError):
+                # we encountered an interface error, so we'll try to reset the wifi
+        #        self.reset_wifi()
+
+        #    if restart_ap:
+        #        self.start_ap()
+        #    return False
 
     def forget_wifi(self):
         self.logger.debug("Forgetting configured wifi...")
