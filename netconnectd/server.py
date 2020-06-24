@@ -379,16 +379,17 @@ class Server(object):
             self.stop_ap()
 
         self.free_wifi()
-		
+
         subprocess.check_call(['/sbin/wpa_cli', '-i', 'wlan0', 'reconfigure'], stderr=subprocess.STDOUT)
         
         try:
             ifupout = subprocess.check_output(['sudo', '/sbin/ifconfig', 'wlan0', 'up'], stderr=subprocess.STDOUT)
+            return True
+
         except subprocess.CalledProcessError as e:
 		    self.logger.info("Ifconfig up basarisiz %s" % self.wifi_connection_ssid)
             return False
 
-        return True
         #try:
         #    self.wifi_connection.activate()
         #    self.logger.info("Connected to wifi %s" % self.wifi_connection_ssid)
